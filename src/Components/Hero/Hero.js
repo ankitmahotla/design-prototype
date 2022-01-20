@@ -1,6 +1,6 @@
 import React from "react";
 import "./Hero.styles.css";
-import Doctor from '../../Images/doctor.jpg';
+import Doctor from '../../Images/Doctor.png';
 import About from "../../About/About";
 
 const Hero = () => {
@@ -20,7 +20,7 @@ const Hero = () => {
           </a>
         </div>
 
-        <div className="col offset-md-2">
+        <div className="col offset-md-3">
           <img src={Doctor} alt="" />
         </div>
       </div>
