@@ -1,5 +1,5 @@
 import React from 'react'
-import './Patient.styles.css';
+import './patient.css';
 
 const Patient = () => {
     return (
@@ -9,7 +9,7 @@ const Patient = () => {
                 <div className="box">
                     <div className="header">
                         <h1>New Patient Enrollment</h1>
-                        <h2>company name</h2>
+                        <h2>Company Name</h2>
                     </div>
                 <hr/>
                 <form>
@@ -21,28 +21,19 @@ const Patient = () => {
                     <span>Date of Birth</span> 
                     <input className="dob1" type="date" id="dob" name="dob"/>
                     <br/> <br/>
-                    <span>Sex</span> 
+                    <span>Sex: </span> 
                     <select name="sex" id="sex">
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                         <option value="Other">Other</option>
                     </select>
                     <br/> <br/>
-                    <span>Contat Number:</span> 
+                    <span>Contact Number: </span> 
                     <input type="tel" id="phone" name="phone" placeholder="+91-6666-999999" pattern="+91-[0-9]4-[0-9]6" required/> <br/> <br/>
-                    <span>E-mail</span>
+                    <span>E-mail: </span>
                     <input className="emailid" type="email" id="email" name="email" placeholder="ex: myname@example.com"/>
                     <br/> <br/>
-                    <span>Address:</span>
-                    <div className="addr_content">
-                        <input className="addr" type="text" id="streetaddr" name="streetaddr"/> <br/> <br/>
-                        <input className="addr" type="text" id="streetaddrln2" name="streetaddrln2"/> <br/> <br/>
-                        <input className="addr" type="text" id="city" name="city"/> <br/> <br/>
-                        <input className="addr" type="text" id="state" name="state"/> <br/> <br/>
-                        <input className="addr" type="text" id="zipcode" name="zipcode"/>
-                    </div>
-                    <br/> <br/>
-                    <span>Marital Status:</span>
+                    <span>Marital Status: </span>
                     <select name="maritalstat" id="maritalstat">
                         <option value="married">Married</option>
                         <option value="unmarried">Single</option>
@@ -53,15 +44,15 @@ const Patient = () => {
                     <input className="fname2" type="text" placeholder="First Name"/>
                     <input  className="lname2" type="text" placeholder="Last Name"/>
                     <br/> <br/>
-                    <span>Relationship</span><br/> <br/>
+                    <span>Relationship:</span><br/> <br/>
                     <input type="text" id="guardian" name="guardian"/> <br/> <br/>
                     <span>Contact Number:</span> <br/> <br/>
                     <input type="tel" id="phone" name="phone" placeholder="+91-6666-999999" pattern="+91-[0-9]4-[0-9]6" required /> 
                     <hr/> <br/> <br/>
-                    <span>Weight(pounds)</span> <br/>
+                    <span>Weight(pounds):</span> <br/>
                     <input type="text" id="weight" name="weight" /> <br/> <br/>
         
-                    <span>Height(inches)</span> <br/>
+                    <span>Height(inches):</span> <br/>
                     <input type="text" id="height" name="height" /> <br/> <br/>
         
                     <span>Taking any medications, currently?</span> &ensp;
