@@ -1,13 +1,17 @@
+import Button from "react-bootstrap/Button";
 import React from "react";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import {useAuth} from "../../firebase";
 
 const NavBar = () => {
+  const currentUser = useAuth();
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-primary bg-light">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
-            Navbar
+            BBHCS
           </a>
           <button
             className="navbar-toggler"
@@ -33,14 +37,15 @@ const NavBar = () => {
                 </a>
               </li>
             </ul>
-            <form className="d-flex">
-              <button className="btn mx-3 btn-outline-primary" type="submit">
-                Login
-              </button>
-              <Link to='/signin'><button className="btn btn-outline-primary" type="submit">
-                Sign Up
-              </button></Link>
-            </form>
+            { currentUser ? <Form>
+              <Link to="/welcome">
+                <Button>Continue to Site</Button>
+              </Link>
+            </Form> : <Form>
+              <Link to="/signup">
+                <Button>Sign Up</Button>
+              </Link>
+            </Form>}
           </div>
         </div>
       </nav>
