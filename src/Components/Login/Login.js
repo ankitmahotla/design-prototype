@@ -11,16 +11,6 @@ const Login = () => {
   const [error, setError] = useState("")
   const navigate = useNavigate()
 
-  async function handleLogout() {
-    setLoading(true);
-    try {
-      await logout();
-    } catch {
-      alert("Error!");
-    }
-    setLoading(false);
-  }
-
   async function handleLogin() {
     setLoading(true);
     setError("");
@@ -37,7 +27,7 @@ const Login = () => {
     <>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Sign Up</h2>
+          <h2 className="text-center mb-4">Log In</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <div className="mb-3">
             Currently logged in as: {currentUser?.email}{" "}
@@ -58,13 +48,6 @@ const Login = () => {
               >
                 Log In
               </Button>
-            <Button
-              disabled={loading || !currentUser}
-              onClick={handleLogout}
-              className="mt-3 w-100"
-            >
-              Log Out
-            </Button>
           </Form>
         </Card.Body>
       </Card>

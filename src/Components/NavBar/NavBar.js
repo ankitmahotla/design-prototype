@@ -1,11 +1,21 @@
 import Button from "react-bootstrap/Button";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
-import {useAuth} from "../../firebase";
+import { useAuth, logout } from "../../firebase";
 
 const NavBar = () => {
   const currentUser = useAuth();
+  const [loading, setLoading] = useState(false);
+  async function handleLogout() {
+    setLoading(true);
+    try {
+      await logout();
+    } catch {
+      alert("Error!");
+    }
+    setLoading(false);
+  }
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-primary bg-light">
@@ -37,15 +47,30 @@ const NavBar = () => {
                 </a>
               </li>
             </ul>
-            { currentUser ? <Form>
-              <Link to="/welcome">
-                <Button>Continue to Site</Button>
-              </Link>
-            </Form> : <Form>
-              <Link to="/signup">
-                <Button>Sign Up</Button>
-              </Link>
-            </Form>}
+            {currentUser ? (
+              <Form>
+                <Link to="/welcome">
+                  <Button className="mx-2">Continue to Site</Button>
+                </Link>
+                <Link to="/login">
+                  <Button
+                    disabled={loading || !currentUser}
+                    onClick={handleLogout}
+                  >
+                    Log Out
+                  </Button>
+                </Link>
+              </Form>
+            ) : (
+              <Form>
+                <Link to="/login">
+                  <Button>Log In</Button>
+                </Link>
+                <Link to="/signup">
+                  <Button className="mx-2">Sign Up</Button>
+                </Link>
+              </Form>
+            )}
           </div>
         </div>
       </nav>
