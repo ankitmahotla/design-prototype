@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {getFirestore} from "firebase/firestore"
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -27,6 +28,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export default getFirestore();
 const auth = getAuth();
 
 export function signup(email, password) {

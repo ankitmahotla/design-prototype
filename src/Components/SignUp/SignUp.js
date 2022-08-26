@@ -29,7 +29,6 @@ const SignUp = () => {
         <Card.Body>
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <div className="mb-3">Currently logged in as: { currentUser?.email } </div>
           <Form>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>

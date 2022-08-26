@@ -18,7 +18,7 @@ const Login = () => {
       await login(emailRef.current.value, passwordRef.current.value);
       navigate({pathname: '/welcome'})
     } catch {
-        setError("User already logged in!");
+        setError("No such user found!");
     }
     setLoading(false);
   }
@@ -29,9 +29,6 @@ const Login = () => {
         <Card.Body>
           <h2 className="text-center mb-4">Log In</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <div className="mb-3">
-            Currently logged in as: {currentUser?.email}{" "}
-          </div>
           <Form>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
