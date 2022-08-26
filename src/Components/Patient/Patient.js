@@ -1,61 +1,121 @@
-import { onSnapshot, collection } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import {
+  collection,
+  setDoc,
+  doc,
+} from "firebase/firestore";
+import React, {useState } from "react";
 import { Form, Button, Card, Row, Col } from "react-bootstrap";
-import db from "../../firebase";
+import {db, useAuth } from "../../firebase";
 
 const Patient = () => {
+  const [data, setData] = useState({});
+  const currentUser = useAuth();
+  const handleInput = (e) => {
+    const id = e.target.id;
+    const value = e.target.value;
+
+    setData({ ...data, [id]: value });
+  };
+  console.log(data);
+
+  const handleAdd = async (e) => {
+    e.preventDefault();
+    try {
+       await setDoc(doc(db, "users", currentUser.uid), {
+        ...data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Card>
       <Card.Body>
         <h2 className="text-center mb-4">Patient Form</h2>
-        <Form>
+        <Form onSubmit={handleAdd}>
           <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridEmail">
+            <Form.Group as={Col} key="name">
               <Form.Label>Name</Form.Label>
-              <Form.Control type="name" placeholder="Enter Name" />
+              <Form.Control
+                id="name"
+                type="text"
+                placeholder="Enter Name"
+                onChange={handleInput}
+              />
             </Form.Group>
 
-            <Form.Group as={Col} controlId="formGridPassword">
+            <Form.Group as={Col} key="age">
               <Form.Label>Age</Form.Label>
-              <Form.Control type="age" placeholder="Age" />
+              <Form.Control
+                id="age"
+                type="text"
+                placeholder="Age"
+                onChange={handleInput}
+              />
             </Form.Group>
           </Row>
 
-          <Form.Group className="mb-3" controlId="formGridAddress1">
+          <Form.Group className="mb-3" key="mobile">
             <Form.Label>Contact No.</Form.Label>
-            <Form.Control placeholder="+91933XXXXXXX" />
+            <Form.Control
+              id="mobile"
+              type="text"
+              placeholder="+91933XXXXXXX"
+              onChange={handleInput}
+            />
           </Form.Group>
 
           <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridState">
+            <Form.Group as={Col} key="gender">
               <Form.Label>Gender</Form.Label>
-              <Form.Select defaultValue="Choose...">
+              <Form.Select
+                type="text"
+                id="gender"
+                defaultValue="Choose..."
+                onChange={handleInput}
+              >
                 <option>Male</option>
                 <option>Female</option>
                 <option>Other</option>
               </Form.Select>
             </Form.Group>
-            <Form.Group as={Col} controlId="formGridCity">
+            <Form.Group as={Col} key="city">
               <Form.Label>City</Form.Label>
-              <Form.Control />
+              <Form.Control id="key" type="text" onChange={handleInput} />
             </Form.Group>
           </Row>
           <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridCity">
+            <Form.Group as={Col} key="prevDoctor">
               <Form.Label>Previously Consulted Doctor</Form.Label>
-              <Form.Control />
+              <Form.Control
+                id="prevDoctor"
+                type="text"
+                onChange={handleInput}
+              />
             </Form.Group>
-            <Form.Group as={Col} controlId="formGridCity">
+            <Form.Group as={Col} key="bloodGroup">
               <Form.Label>Blood Group</Form.Label>
-              <Form.Control />
+              <Form.Control
+                id="bloodGroup"
+                type="text"
+                onChange={handleInput}
+              />
             </Form.Group>
           </Row>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Group className="mb-3" key="symptoms">
             <Form.Label>Symptoms</Form.Label>
-            <Form.Control as="textarea" rows={3} />
+            <Form.Control
+              as="textarea"
+              id="symptoms"
+              type="text"
+              rows={3}
+              onChange={handleInput}
+            />
           </Form.Group>
 
-          <Button variant="primary">Submit</Button>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
         </Form>
       </Card.Body>
     </Card>
