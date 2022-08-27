@@ -1,13 +1,13 @@
 import {
-  collection,
   setDoc,
   doc,
 } from "firebase/firestore";
 import React, {useState } from "react";
-import { Form, Button, Card, Row, Col } from "react-bootstrap";
+import { Form, Button, Card, Row, Col, Alert } from "react-bootstrap";
 import {db, useAuth } from "../../firebase";
 
 const Patient = () => {
+  const [submitted, setSubmitted] = useState();
   const [data, setData] = useState({});
   const currentUser = useAuth();
   const handleInput = (e) => {
@@ -19,20 +19,23 @@ const Patient = () => {
   console.log(data);
 
   const handleAdd = async (e) => {
+    setSubmitted("");
     e.preventDefault();
     try {
        await setDoc(doc(db, "users", currentUser.uid), {
         ...data,
       });
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
+    setSubmitted("Form Submitted");
   };
   return (
     <Card>
       <Card.Body>
         <h2 className="text-center mb-4">Patient Form</h2>
         <Form onSubmit={handleAdd}>
+        {submitted && <Alert variant="danger">{submitted}</Alert>}
           <Row className="mb-3">
             <Form.Group as={Col} key="name">
               <Form.Label>Name</Form.Label>

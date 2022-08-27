@@ -16,7 +16,7 @@ const SignUp = () => {
     setError("")
     try {
       await signup(emailRef.current.value, passwordRef.current.value);
-      navigate({pathname: './welcome'})
+      navigate({pathname: '/welcome'})
     } catch {
         setError("User account already exists!")
     }
