@@ -5,8 +5,7 @@ import {Routes, Route} from 'react-router-dom';
 import Patient from './Components/Patient/Patient';
 import Welcome from './Components/Welcome/Welcome';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SignUp from './Components/SignUp/SignUp';
-import Login from './Components/Login/Login';
+import Doctors from './Components/Doctors/Doctors';
 
 function App() {
   return (
@@ -15,9 +14,8 @@ function App() {
       <Routes>
       <Route path='/' element={<Hero/>} />
       <Route path='/patient' element={<Patient />} />
-      <Route path='/signup' element={<SignUp/>}/>
       <Route path='/welcome' element={<Welcome />}/>
-      <Route path='/login' element={<Login/>}/>
+      <Route path='/doctors' element={<Doctors/>}/>
       </Routes>
     </div>
   );

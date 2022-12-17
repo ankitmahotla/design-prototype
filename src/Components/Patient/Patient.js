@@ -1,41 +1,12 @@
-import {
-  setDoc,
-  doc,
-} from "firebase/firestore";
-import React, {useState } from "react";
-import { Form, Button, Card, Row, Col, Alert } from "react-bootstrap";
-import {db, useAuth } from "../../firebase";
+import React from "react";
+import { Form, Button, Card, Row, Col} from "react-bootstrap";
 
 const Patient = () => {
-  const [submitted, setSubmitted] = useState();
-  const [data, setData] = useState({});
-  const currentUser = useAuth();
-  const handleInput = (e) => {
-    const id = e.target.id;
-    const value = e.target.value;
-
-    setData({ ...data, [id]: value });
-  };
-  console.log(data);
-
-  const handleAdd = async (e) => {
-    setSubmitted("");
-    e.preventDefault();
-    try {
-       await setDoc(doc(db, "users", currentUser.uid), {
-        ...data,
-      });
-    } catch (err) {
-      console.log(err)
-    }
-    setSubmitted("Form Submitted");
-  };
   return (
     <Card>
       <Card.Body>
         <h2 className="text-center mb-4">Patient Form</h2>
-        <Form onSubmit={handleAdd}>
-        {submitted && <Alert variant="danger">{submitted}</Alert>}
+        <Form>
           <Row className="mb-3">
             <Form.Group as={Col} key="name">
               <Form.Label>Name</Form.Label>
@@ -43,7 +14,6 @@ const Patient = () => {
                 id="name"
                 type="text"
                 placeholder="Enter Name"
-                onChange={handleInput}
               />
             </Form.Group>
 
@@ -53,7 +23,6 @@ const Patient = () => {
                 id="age"
                 type="text"
                 placeholder="Age"
-                onChange={handleInput}
               />
             </Form.Group>
           </Row>
@@ -64,7 +33,6 @@ const Patient = () => {
               id="mobile"
               type="text"
               placeholder="+91933XXXXXXX"
-              onChange={handleInput}
             />
           </Form.Group>
 
@@ -75,7 +43,6 @@ const Patient = () => {
                 type="text"
                 id="gender"
                 defaultValue="Choose..."
-                onChange={handleInput}
               >
                 <option>Male</option>
                 <option>Female</option>
@@ -84,7 +51,7 @@ const Patient = () => {
             </Form.Group>
             <Form.Group as={Col} key="city">
               <Form.Label>City</Form.Label>
-              <Form.Control id="key" type="text" onChange={handleInput} />
+              <Form.Control id="key" type="text" />
             </Form.Group>
           </Row>
           <Row className="mb-3">
@@ -93,7 +60,6 @@ const Patient = () => {
               <Form.Control
                 id="prevDoctor"
                 type="text"
-                onChange={handleInput}
               />
             </Form.Group>
             <Form.Group as={Col} key="bloodGroup">
@@ -101,7 +67,6 @@ const Patient = () => {
               <Form.Control
                 id="bloodGroup"
                 type="text"
-                onChange={handleInput}
               />
             </Form.Group>
           </Row>
@@ -112,7 +77,6 @@ const Patient = () => {
               id="symptoms"
               type="text"
               rows={3}
-              onChange={handleInput}
             />
           </Form.Group>
 

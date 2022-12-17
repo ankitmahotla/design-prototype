@@ -1,21 +1,50 @@
 import Button from "react-bootstrap/Button";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
-import { useAuth, logout } from "../../firebase";
+import Web3 from "web3";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
-  const currentUser = useAuth();
-  const [loading, setLoading] = useState(false);
-  async function handleLogout() {
-    setLoading(true);
-    try {
-      await logout();
-    } catch {
-      alert("Error!");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  const web3 = new Web3(window.ethereum);
+
+  const login = async () => {
+    if (!window.ethereum) {
+      window.location.assign('https://metamask.io/download.html');
+      return;
     }
-    setLoading(false);
-  }
+    try {
+      await window.ethereum.enable();
+      const accounts = await web3.eth.getAccounts();
+      if (accounts.length > 0) {
+        setIsLoggedIn(true);
+        navigate("/welcome");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const logout = () => {
+    setIsLoggedIn(false);
+    navigate("/");
+  };
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const accounts = await web3.eth.getAccounts();
+        if (accounts.length > 0) {
+          setIsLoggedIn(true);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    checkLoginStatus();
+  }, []);
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-primary bg-light">
@@ -47,28 +76,13 @@ const NavBar = () => {
                 </a>
               </li>
             </ul>
-            {currentUser ? (
+            {isLoggedIn ? (
               <Form>
-                <Link to="/welcome">
-                  <Button className="mx-2">Continue to Site</Button>
-                </Link>
-                <Link to="/login">
-                  <Button
-                    disabled={loading || !currentUser}
-                    onClick={handleLogout}
-                  >
-                    Log Out
-                  </Button>
-                </Link>
+                <Button onClick={logout}>Logout</Button>
               </Form>
             ) : (
               <Form>
-                <Link to="/login">
-                  <Button>Log In</Button>
-                </Link>
-                <Link to="/signup">
-                  <Button className="mx-2">Sign Up</Button>
-                </Link>
+                <Button onClick={login}>Login with MetaMask</Button>
               </Form>
             )}
           </div>
